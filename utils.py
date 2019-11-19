@@ -9,28 +9,29 @@ from sklearn.svm import SVC
 
 # Test options and evaluation metric
 validation_size = 0.3
-seed = 7
+seed = 1
 scoring = 'accuracy'
 kfold = 10
 
 
-def get_model():
+def get_default_model():
     return SVC(kernel='linear', probability=True, verbose=False)
 
 
 def get_logging():
-    logging.basicConfig(filename='logs.out', format='%(asctime)-15s : %(filename)s:%(lineno)s : %(funcName)s() : %(message)s', filemode='a',
-                    datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
+    logging.basicConfig(filename='logs.out',
+                        format='%(asctime)-15s : %(filename)s:%(lineno)s : %(funcName)s() : %(message)s', filemode='a',
+                        datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
     return logging
 
 
 def get_models():
     models = list()
-    # models.append(('LR', LogisticRegression()))
+    models.append(('LR', LogisticRegression()))
     models.append(('LDA', LinearDiscriminantAnalysis()))
     models.append(('KNN', KNeighborsClassifier()))
-    # models.append(('CART', DecisionTreeClassifier()))
-    # models.append(('NB', GaussianNB()))
+    models.append(('CART', DecisionTreeClassifier()))
+    models.append(('NB', GaussianNB()))
     models.append(('SVM_LINEAR', SVC(kernel='linear', probability=True)))
     return models
 

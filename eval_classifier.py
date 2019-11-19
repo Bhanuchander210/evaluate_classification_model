@@ -16,7 +16,7 @@ logging = utils.get_logging()
 
 
 def save_model(input_data, target_data, classifier_path):
-    model = utils.get_model()
+    model = utils.get_default_model()
     class_names = np.unique(target_data)
     model.fit(input_data, target_data)
     with open(classifier_path, 'wb') as outfile:
@@ -38,7 +38,7 @@ def main(classifier_data):
     names = []
     for name, model in utils.get_models():
         kfold = model_selection.KFold(n_splits=utils.kfold, random_state=utils.seed)
-        cv_results = model_selection.cross_val_score(model, x_train, y_train, cv=kfold, scoring=utils.scoring, verbose=True)
+        cv_results = model_selection.cross_val_score(model, input_data,target_data, cv=kfold, scoring=utils.scoring, verbose=True)
 
         predicted = model_selection.cross_val_predict(model, x_train, y_train)
         class_names = np.unique(target_data)
